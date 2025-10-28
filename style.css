@@ -2,3 +2,25 @@ html {
   height: 100%;
   width: 100%;
 }
+
+body {
+  background-color: green;
+}
+
+.title {
+  color: red;
+
+}
+
+.postDiv {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px;
+}
