@@ -60,6 +60,7 @@
               <td class='post-body'>${data.body}</td>
               <td>${data.userId}</td>
             `;
+            console.log("Wybrany post:", data);
           }
         })
         .catch(error => {
