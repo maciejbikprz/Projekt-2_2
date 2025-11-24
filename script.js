@@ -4,6 +4,7 @@
   const cw2 = document.getElementById('cw2')
   const cw3 = document.getElementById('cw3')
   const answer = document.getElementById('answer')
+  const loadingOverlay = document.getElementById('loadingOverlay')
 
   example.addEventListener("click", function() {
     fetch('https://jsonplaceholder.typicode.com/posts')
@@ -19,13 +20,13 @@
   });
 
   function fetchGET(url) {
-    answer.innerHTML = "Loading...";
+    answer.innerHTML = "";
+    loadingOverlay.classList.add("active");
     if (url == null) {
       url = "https://jsonplaceholder.typicode.com/posts";
     }
 
     setTimeout(function() {
-      answer.innerHTML = "";
       var table = answer.appendChild(document.createElement("table"));
       var thead = table.appendChild(document.createElement("thead"));
       var headerRow = thead.appendChild(document.createElement("tr"));
@@ -62,10 +63,12 @@
             `;
             console.log("Wybrany post:", data);
           }
+          loadingOverlay.classList.remove("active");
         })
         .catch(error => {
           answer.innerHTML = "Error fetching data.";
           console.error(error);
+          loadingOverlay.classList.remove("active");
         });
 
     }, 2000);
@@ -78,7 +81,7 @@
 
 
   function fetchPOST() {
-    answer.innerHTML = "Processing...";
+    loadingOverlay.classList.add("active");
 
     const newPost = {
       title: "Mój nowy post",
@@ -97,6 +100,7 @@
       .then(data => {
         answer.innerHTML = `Dodano nowy post o ID = ${data.id}`;
         console.log("Odpowiedź serwera:", data);
+        loadingOverlay.classList.remove("active");
       });
   }
 
