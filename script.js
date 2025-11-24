@@ -26,32 +26,39 @@
 
     setTimeout(function() {
       answer.innerHTML = "";
-      var list = answer.appendChild(document.createElement("ul"));
+      var table = answer.appendChild(document.createElement("table"));
+      var thead = table.appendChild(document.createElement("thead"));
+      var headerRow = thead.appendChild(document.createElement("tr"));
+      
+      headerRow.innerHTML = `
+        <th>ID</th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>User ID</th>
+      `;
+      
+      var tbody = table.appendChild(document.createElement("tbody"));
 
       fetch(url)
         .then(response => response.json())
         .then(data => {
           if (Array.isArray(data)) {
             data.forEach(element => {
-              var item = list.appendChild(document.createElement("li"));
-              item.innerHTML = `
-                <div class='postDiv'>
-                  <b>ID: ${element.id}</b>
-                  <p class='title'><u>Title:</u><br> ${element.title}</p>
-                  <p><u>Body:</u><br> ${element.body}</p>
-                  <p><u>User ID:</u><br> ${element.userId}</p>
-                </div>
+              var row = tbody.appendChild(document.createElement("tr"));
+              row.innerHTML = `
+                <td>${element.id}</td>
+                <td class='post-title'>${element.title}</td>
+                <td class='post-body'>${element.body}</td>
+                <td>${element.userId}</td>
               `;
             });
           } else {
-            var item = list.appendChild(document.createElement("li"));
-            item.innerHTML = `
-              <div class='postDiv'>
-                <b>ID: ${data.id}</b>
-                <p class='title'><u>Title:</u><br> ${data.title}</p>
-                <p><u>Body:</u><br> ${data.body}</p>
-                <p><u>User ID:</u><br> ${data.userId}</p>
-              </div>
+            var row = tbody.appendChild(document.createElement("tr"));
+            row.innerHTML = `
+              <td>${data.id}</td>
+              <td class='post-title'>${data.title}</td>
+              <td class='post-body'>${data.body}</td>
+              <td>${data.userId}</td>
             `;
           }
         })
